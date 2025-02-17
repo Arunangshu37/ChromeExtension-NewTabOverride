@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bootstrap demo</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<div class="container d-flex flex-column h-100">
+		<h1 id="greetings"></h1>
+		<div class="row">
+			<h2 class="p-0">My tasks</h2>
+			<button type="button" class="btn btn-primary my-2" style="width: fit-content;" data-bs-toggle="modal"
+				data-bs-target="#taskFormModal" id="openTaskFormModalButton">
+				Create task
+			</button>
+		</div>
+
+		<div class="row d-flex main-container">
+			<div class="col-lg-7 d-flex flex-column h-100 overflow-y-auto">
+				<div class="row">
+					<div class="card my-3">
+						<div class="card-body d-flex">
+							<div class="me-3 w-50">
+								<input type="search" class="form-control" id="searchInput"
+									placeholder="Search here.">
+							</div>
+							<select class="form-select" style="width: fit-content;" aria-label="Default select example"
+								id="itemsPerPageInput">
+								<option value="5" selected>5</option>
+								<option value="7">7</option>
+								<option value="10">10</option>
+								<option value="15">15</option>
+							</select>
+							<span id="info" class="my-auto"></span>
+						</div>
+					</div>
+				</div>
+				<div class="d-flex flex-column overflow-y-auto">
+					<div class="card-body flex-0">
+						<button class="btn btn-secondary" id="prevButton">prev</button>
+						<button class="btn btn-secondary" id="nextButton">next</button>
+					</div>
+					<div class="flex-1 overflow-y-auto">
+						<table class="table">
+							<thead class="fixed">
+								<tr id="taskTableColumnHeaders"></tr>
+							</thead>
+							<tbody class="pt-5" id="tbody"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5 d-flex flex-column toggle-quick-note">
+				<div class="card align-self-center w-100 mt-3 h-100">
+					<div class="card-body">
+						<textarea name="" class="form-control w-100 h-100" id="quickNoteTextArea" placeholder="Quick notes.."></textarea>
+					</div>
+					<div class="card-footer ">
+						<button class="btn btn-secondary" id="goToPreviousQuickNoteButton">prev</button>
+						<button class="btn btn-secondary" id="goToNextQuickNoteButton">next</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row py-4 my-1  padding-x-0pt75-rem ">
+			<div class="card">
+				<div class="card-body">
+					This is some text within a card body.
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="taskFormModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header d-flex justify-content-between">
+					<h1 class="modal-title fs-5" id="taskModalLabel"></h1>
+					<span>
+						<button id="taskFormModalDeleteButton" type="button" class="btn btn-primary"
+							data-bs-toggle="modal" data-bs-target="#taskFormModalDeleteConfirmation">
+							Delete
+						</button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</span>
+				</div>
+				<form id="taskForm">
+					<div class="modal-body">
+						<div class="mb-3 row">
+							<input type="hidden" name="id" value="0">
+							<div class="col-md-6">
+								<label for="date">Due Date</label>
+								<input class="form-control" type="date" name="dueDate" id="dueDate">
+							</div>
+							<div class="col-md-6">
+								<label for="itme">Due time</label>
+								<input class="form-control" type="time" name="dueTime" id="dueTime">
+							</div>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" for="status">Status</label>
+							<select class="form-select" aria-label="Default select example" id="status" name="status">
+								<option selected value="0">New</option>
+								<option value="1">Active</option>
+								<option value="2">Complete</option>
+							</select>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="text" name="title" class="form-control" id="title"
+								placeholder="This is a task for...">
+							<label for="title">Title</label>
+						</div>
+						<div class="form-floating mb-3">
+							<textarea type="text" name="description" class="form-control" id="description"
+								placeholder="Description of the task" style="height: 100px"></textarea>
+							<label for="description">Description</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Save changes</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Delete confirmation modal -->
+	<div class="modal fade" id="taskFormModalDeleteConfirmation" tabindex="-1"
+		aria-labelledby="taskFormModalDeleteConfirmationLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="taskFormModalDeleteConfirmationLabel">Delete confirmation?</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Are you sure you want to delete this task?
+					<p id="taskTitleForConfirmation"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="closeDeleteConfirmationModalButton" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+					<button type="button" id="taskDeletedConfirmedButton" task-id=""
+						class="btn btn-primary">delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="toast-container position-fixed bottom-0 end-0 p-3">
+		<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="me-auto">success</strong>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+			<div class="toast-body">
+
+			</div>
+		</div>
+	</div>
+	<div class="card" id="rowContextMenu">
+		<div class="card-body">
+			<button id="contextMenuRowDeleteButton" class="btn btn-secondary">delete</button>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+	<script src="./setup.js" defer></script>
+	<script src="./script.js" defer></script>
+	<script src="./eventListeners.js" defer></script>
+	<script src="./search.js" defer></script>
+	<script src="./quicknotes.js" defer></script>
+</body>
+
+</html>

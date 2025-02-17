@@ -1,0 +1,111 @@
+body,
+html {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	--bs-body-font-size: 0.8em;
+}
+
+.main-container {
+	height: 100%;
+	overflow-y: auto;
+}
+
+.fixed {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+}
+
+.overflow-y-auto {
+	overflow-y: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+.padding-x-0pt75-rem {
+	padding-right: 0.75rem;
+}
+
+.flex-1{
+	flex: 1;
+}
+.flex-0{
+	flex: 0;
+}
+#taskTableColumnHeaders{ 
+	background-color: lightgrey;;
+}
+#rowContextMenu {
+	display: none;
+	position: absolute;
+	background-color: #eaeaea;
+	width: 120px;
+	height: 80px;
+}
+
+#rowContextMenu.show {
+	display: block;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px rgb(226, 226, 226);
+	border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #cfcfcf;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.table>:not(caption)>*>* {
+	padding: 0.2rem 0.2rem;
+	background: transparent;
+}
+
+.form-control,
+.form-select,
+.btn {
+	font-size: 0.8rem;
+}
+
+.item:hover {
+	background-color: #eaeaea;
+	cursor: pointer;
+}
+
+.badge {
+	color: white;
+}
+
+.new {
+	background-color: rgb(178, 178, 178);
+}
+
+.active {
+	background-color: rgb(0, 122, 204);
+}
+
+.complete {
+	background-color: rgb(51, 153, 51);
+}
+
+@media only screen and (max-width: 991px) {
+	.toggle-quick-note {
+		display: none !important;
+	}
+
+	.padding-x-0pt75-rem {
+		padding: 0rem;
+	}
+}
