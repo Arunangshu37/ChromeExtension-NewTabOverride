@@ -2,8 +2,10 @@ const taskForm = document.getElementById("taskForm");
 const taskFormModal = new bootstrap.Modal('#taskFormModal');
 const fields = Object.keys(defaultTaskSchema);
 const taskFormModalDeleteButton = document.getElementById('taskFormModalDeleteButton');
-const taskDeletedConfirmedButton = document.getElementById('taskDeletedConfirmedButton');
-const taskFormModalDeleteConfirmation = new bootstrap.Modal('#taskFormModalDeleteConfirmation');
+
+const deleteConfirmationButton = document.getElementById('deleteConfirmationButton');
+const deleteConfirmationModal = new bootstrap.Modal('#deleteConfirmationModal');
+
 const openTaskFormModalButton = document.getElementById('openTaskFormModalButton');
 const prevButton = document.getElementById('prevButton');
 const nextButton = document.getElementById('nextButton');
@@ -46,8 +48,7 @@ taskForm.addEventListener("submit", (event) => {
 	updateTask(data);
 });
 
-taskDeletedConfirmedButton.addEventListener('click', deleteTask);
-
+deleteConfirmationButton.addEventListener('click', deleteItem);
 // to see a clean form whenever the the form is opened on click of create task button
 openTaskFormModalButton.addEventListener('click', () => {
 	updateFormAndOpenModal(defaultTaskSchema);
@@ -56,8 +57,8 @@ openTaskFormModalButton.addEventListener('click', () => {
 contextMenuRowDeleteButton.addEventListener('click', (event) => {
 	// console.log(event.target.parentElement.parentElement);
 	isTaskFormModalOpen = false;
-	taskDeletedConfirmedButton.setAttribute('task-id', JSON.parse(event.target.parentElement.parentElement.getAttribute('taskdata')).id);
-	taskFormModalDeleteConfirmation.show();
+	deleteConfirmationButton.setAttribute('task-id', JSON.parse(event.target.parentElement.parentElement.getAttribute('taskdata')).id);
+	deleteConfirmationModal.show();
 });
 
 closeDeleteConfirmationModalButton.addEventListener('click', () => {
