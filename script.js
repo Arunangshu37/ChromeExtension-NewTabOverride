@@ -50,6 +50,7 @@ function updateTask(data) {
 function deleteItem(event) {
 	let taskId = +event.target.getAttribute('task-id');
 	let quickNoteId = +event.target.getAttribute('quick-note-id');
+	let quickLinkId = +event.target.getAttribute('quick-link-id');
 
 	if(taskId != -1 ) {
 		let dataFromLocalStorage = getData();
@@ -82,8 +83,16 @@ function deleteItem(event) {
 
 		setQuickNoteData(data);
 	}
+	
+	if(quickLinkId != -1) {
+		let data = getData();
+		data.quickLinks.splice(quickLinkId, 1);
+		localStorage.setItem(dataStoreId, JSON.stringify(data));
+		loadQuickLinks();
+	}
 	event.target.setAttribute('task-id', -1);
 	event.target.setAttribute('quick-note-id', -1);
+	event.target.setAttribute('quick-link-id', -1);
 	deleteConfirmationModal.hide();
 }
 
@@ -136,6 +145,14 @@ function attachCellDataToTableRow(item, tr) {
 				td.appendChild(span);
 				tr.appendChild(td);
 				continue;
+			}
+			if (key == 'title') {
+				let div = document.createElement('div');
+				div.classList.add('task-title');
+				div.textContent = item[key];
+				td.appendChild(div);
+				tr.appendChild(td);
+				continue
 			}
 			td.textContent = item[key];
 			tr.appendChild(td);

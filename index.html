@@ -29,8 +29,7 @@
 					<div class="card my-3">
 						<div class="card-body d-flex">
 							<div class="me-3 w-50">
-								<input type="search" class="form-control" id="searchInput"
-									placeholder="Search here.">
+								<input type="search" class="form-control" id="searchInput" placeholder="Search here.">
 							</div>
 							<select class="form-select" style="width: fit-content;" aria-label="Default select example"
 								id="itemsPerPageInput">
@@ -63,10 +62,12 @@
 				<div class="card align-self-center w-100 mt-3 h-100">
 					<div class="card-header d-flex justify-content-between">
 						<h3>Quick notes</h3>
-						<button class="btn btn-light" id="quickNoteDeleteConfirmationModalDeleteButton"><i class="bi bi-trash3"></i></button>
+						<button class="btn btn-light" id="quickNoteDeleteConfirmationModalDeleteButton"><i
+								class="bi bi-trash3"></i></button>
 					</div>
 					<div class="card-body">
-						<textarea name="" class="form-control w-100 h-100" id="quickNoteTextArea" placeholder="Quick notes.."></textarea>
+						<textarea name="" class="form-control w-100 h-100" id="quickNoteTextArea"
+							placeholder="Quick notes.."></textarea>
 					</div>
 					<div class="card-footer ">
 						<button class="btn btn-secondary" id="goToPreviousQuickNoteButton">prev</button>
@@ -79,10 +80,45 @@
 		<div class="row py-4 my-1  padding-x-0pt75-rem ">
 			<div class="card">
 				<div class="card-body">
-					This is some text within a card body.
+					<div id="quick-links-holder">
+
+					</div>
+				</div>
+				<!-- Add quick links modal -->
+				<div class="modal fade" id="quickLinksModal" tabindex="-1" aria-labelledby="quickLinksModalLabel"
+					aria-hidden="true">
+					<form id="quickLinkForm">
+						<input type="hidden" name="id" value="-1" id="quickLinkIndex">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel">Save quick link</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<div class="form-floating mb-3">
+										<input type="text" class="form-control" id="quickLinkName" placeholder="name" name="name" required> 
+										<label for="quickLinkName">Name of the quick link</label>
+									</div>
+									<div class="form-floating">
+										<textarea class="form-control" id="link" placeholder="Link" name="link" required></textarea>
+										<label for="link">Link</label>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary" id="saveQuickLinkBtn">Save
+										changes</button>
+								</div>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
+
 	</div>
 
 	<!-- Task modal form to create or edit task-->
@@ -142,8 +178,8 @@
 
 
 	<!-- Delete confirmation modal -->
-	<div class="modal fade" id="deleteConfirmationModal" tabindex="-1"
-		aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+	<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
+		aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -181,6 +217,7 @@
 			<button id="contextMenuRowDeleteButton" class="btn btn-secondary">delete</button>
 		</div>
 	</div>
+	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
@@ -189,6 +226,10 @@
 	<script src="./eventListeners.js" defer></script>
 	<script src="./search.js" defer></script>
 	<script src="./quicknotes.js" defer></script>
+	<script src="./quicklinks.js" defer></script>
+	<script>
+
+	</script>
 </body>
 
 </html>

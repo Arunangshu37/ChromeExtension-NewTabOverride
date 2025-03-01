@@ -100,6 +100,51 @@ html {
 	background-color: rgb(51, 153, 51);
 }
 
+#quick-links-holder {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+}
+.quick-link {
+	position: relative;
+	display: flex;
+	padding: 0.5rem;
+	flex-direction: column;
+}
+.quick-link a {
+	display: flex;
+	justify-content: center;
+}
+
+.quick-link button {
+	position: absolute;
+	padding: 0;
+	right: 0;
+	z-index: 1
+}
+
+.quick-link img {
+	padding: 0.5rem;
+	height: 50px;
+	width: 50px;
+	align-self: center;
+}
+.quick-link label {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	display: inline-block;
+	width: 70px;
+	text-align: center;
+}
+
+.task-title {
+	width: 440px;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
 @media only screen and (max-width: 991px) {
 	/* .toggle-quick-note {
 		display: none !important;
