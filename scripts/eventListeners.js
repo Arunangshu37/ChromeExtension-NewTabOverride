@@ -1,10 +1,8 @@
 const taskForm = document.getElementById("taskForm");
-const taskFormModal = new bootstrap.Modal('#taskFormModal');
 const fields = Object.keys(defaultTaskSchema);
 const taskFormModalDeleteButton = document.getElementById('taskFormModalDeleteButton');
-
 const deleteConfirmationButton = document.getElementById('deleteConfirmationButton');
-const deleteConfirmationModal = new bootstrap.Modal('#deleteConfirmationModal');
+const hideCompletedTask = document.getElementById('hideCompletedTask');
 
 const openTaskFormModalButton = document.getElementById('openTaskFormModalButton');
 const prevButton = document.getElementById('prevButton');
@@ -14,6 +12,8 @@ const rowContextMenu = document.getElementById('rowContextMenu');
 const contextMenuRowDeleteButton = document.getElementById('contextMenuRowDeleteButton');
 const closeDeleteConfirmationModalButton = document.getElementById('closeDeleteConfirmationModalButton');
 
+const taskFormModal = new bootstrap.Modal('#taskFormModal');
+const deleteConfirmationModal = new bootstrap.Modal('#deleteConfirmationModal');
 var rowSelected = null;
 
 document.addEventListener('click', (event) => {
@@ -86,3 +86,5 @@ nextButton.addEventListener('click', () => {
 	info.textContent = `${prevIndex} - ${nextIndex}`
 	updateCurrentView(false, searchResult);
 });
+
+hideCompletedTask.addEventListener('change', hideOrShowAllCompletedTasks)

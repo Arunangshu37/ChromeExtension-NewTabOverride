@@ -139,11 +139,15 @@ html {
 }
 
 .task-title {
-	width: 440px;
+	width: 420px;
     display: inline-block;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow-x: hidden;
+}
+
+.margin-v-auto {
+	margin: auto 1rem;
 }
 @media only screen and (max-width: 991px) {
 	/* .toggle-quick-note {

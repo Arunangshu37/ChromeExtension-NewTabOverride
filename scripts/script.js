@@ -4,8 +4,9 @@ function init() {
 	let jsonStringFromLocalStorage = localStorage.getItem(dataStoreId);
 	if (isAssigned(jsonStringFromLocalStorage) && jsonStringFromLocalStorage != '') {
 		let data = JSON.parse(jsonStringFromLocalStorage);
+		hideCompletedTask.checked = data.settings.hideCompletedTasks;
 		totalTasksCount = data.tasks.length;
-		updateCurrentView();
+		updateCurrentView(true, [], data.settings.hideCompletedTasks);
 		return;
 	}
 	const initialSchema = JSON.stringify(schema);
@@ -115,7 +116,7 @@ function addRowToTheEndOfTable(item) {
 	tbody.appendChild(tr);
 }
 
-function updateCurrentView(reset = true, particularTasks = []) {
+function updateCurrentView(reset = true, particularTasks = [], hideCompletedTasks = false) {
 	let tasks = particularTasks
 	if(particularTasks.length == 0) {
 		tasks = getData().tasks;
@@ -128,7 +129,11 @@ function updateCurrentView(reset = true, particularTasks = []) {
 		nextIndex = prevIndex;
 		prevIndex = prevIndex - itemsPerPage >= 0 ? prevIndex - itemsPerPage : 0;
 	}
-	let tasksToDisplay = tasks.slice(prevIndex, nextIndex);
+	let tasksToDisplay = tasks.slice(prevIndex, nextIndex)
+	if(hideCompletedTasks) {
+		// 2 for complete tasks
+		tasksToDisplay = tasksToDisplay.filter(task => task.status != 2);
+	}
 	loadData(fieldsToBeDisplayed, tasksToDisplay);
 }
 
@@ -199,7 +204,10 @@ function updateFormAndOpenModal(item) {
 			element.value = item[element.name];
 		}
 	})
-	deleteConfirmationButton.setAttribute('task-id', item.id);
+	const taskId = +item.id == 0 ? '-1' : item.id;
+	deleteConfirmationButton.setAttribute('task-id', taskId);
+	taskFormModalDeleteButton.style.display = taskId == '-1' ? 'none' : 'inline-block';
+
 	taskFormModal.show();
 }
 
@@ -211,6 +219,17 @@ function buildColumnHeadings(fieldsToBeDisplayed) {
 		th.textContent = keyNameMap[field];
 		taskTableColumnHeaders.appendChild(th);
 	});
+}
+
+function hideOrShowAllCompletedTasks(event) {
+	let data = getData();
+	data.settings.hideCompletedTasks = event.target.checked;
+	localStorage.setItem(dataStoreId, JSON.stringify(data));
+	if(event.target.checked) {
+		updateCurrentView(true, [], true);
+		return;
+	} 
+	updateCurrentView(true, [], false);
 }
 
 // utility methods to keep code decoupled.
@@ -230,7 +249,7 @@ function getIdFromParentNode(target) {
 		return target;
 	}
 	return getIdFromParentNode(target.parentElement);
-} 
+}
 
 // initializing scripts and setting up basic requirements to get the app working.
 init();

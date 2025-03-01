@@ -7,6 +7,7 @@ searchInput.addEventListener('keyup', (event) => {
 	searchTime = setTimeout(() => {
 		let tasks = getData().tasks;
 		searchResult = tasks.filter(task => task.title.toLowerCase().indexOf(value) !=-1 );
-		updateCurrentView(true, searchResult);
+		let data = getData();
+		updateCurrentView(true, searchResult, data.settings.hideCompletedTasks);
 	}, 1500);
 });
