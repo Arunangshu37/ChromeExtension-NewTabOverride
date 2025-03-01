@@ -174,7 +174,7 @@ function getData() {
 function handleRowClicked(event) {
 	isTaskFormModalOpen = true;
 	let { tasks } = getData();
-	const target = getIdFromParentNode(event.target);
+	const target = getTargetFromParentNode(event.target);
 	const id = target.id;
 	const item = tasks.find((item) => item.id == id.substring(0, id.length - 2));
 	updateFormAndOpenModal(item);
@@ -185,13 +185,14 @@ function displayContextMenu(event) {
 	if(rowSelected) {
 		rowSelected.style.backgroundColor = '';
 	}
-	rowSelected = getIdFromParentNode(event.target);
+	rowSelected = getTargetFromParentNode(event.target);
 	rowSelected.style.backgroundColor = 'lightgrey';
 	rowContextMenu.style.display = 'block';
 	rowContextMenu.style.top = `${event.y}px`;
 	rowContextMenu.style.left = `${event.x}px`;
 
-	const id = event.target.parentElement.id;
+	const target = getTargetFromParentNode(event.target);
+	const id = target.id;
 	const item = getData().tasks.find((item) => item.id == id.substring(0, id.length - 2));
 
 	rowContextMenu.setAttribute('taskData', JSON.stringify(item));
@@ -243,12 +244,12 @@ function setQuickNoteData(data) {
 	localStorage.setItem(dataStoreId, JSON.stringify(data));
 }
 
-function getIdFromParentNode(target) {
+function getTargetFromParentNode(target) {
 	// need to make sure to call for an element that is inside a <tr> tag. Otherwise there will be too much of unnecessary calls.
 	if(target.tagName == 'TR' || target.tagName == 'BODY') {
 		return target;
 	}
-	return getIdFromParentNode(target.parentElement);
+	return getTargetFromParentNode(target.parentElement);
 }
 
 // initializing scripts and setting up basic requirements to get the app working.
